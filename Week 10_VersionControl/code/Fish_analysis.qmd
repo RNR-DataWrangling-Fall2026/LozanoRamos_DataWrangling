@@ -32,3 +32,8 @@ fish_data2 <- fish_data |>
             mean_scale_length = mean(scalelength, na.rm = T))
 fish_data2
 ```
+
+```{r}
+ggplot(fish_data, aes(x = scalelength)) +
+  geom_histogram()
+```

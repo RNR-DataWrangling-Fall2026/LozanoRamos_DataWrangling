@@ -10,16 +10,20 @@ Quarto enables you to weave together content and executable code into a finished
 
 ## Running Code
 
-Load tidyverse abd tge data set
+Load tidyverse and load the data set, so you can have it in your environment.Load tidyverse and load the data set, so you can have it in your environment.
 
 ```{r}
 library(tidyverse)
 fish_data <- read.csv("../Gaeta_etal_CLC_data.csv")
 ```
 
+Takes a look at the initial values of the data frame, it allows us to look at how is structured.
+
 ```{r}
 head(fish_data)
 ```
+
+It creates a new data frame containing the minimun, maximun and the mean of the scale length from our previously loaded data.
 
 ```{r}
 fish_data2 <- fish_data |> 

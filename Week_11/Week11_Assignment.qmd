@@ -43,9 +43,9 @@ a.  Copy the following function (which converts weights in pounds to weights in 
     Use the function to calculate how many grams there are in 3.75 pounds.
 
 ```{r}
-# convert_pounds_to_grams <- function(________) {
+# convert_pounds_to_grams <- function(pounds) {
 #     grams <- 453.6 * pounds
-#     return(________)
+#     return(grams)
 # }
 ```
 
@@ -54,15 +54,31 @@ b.  Copy the following function (which converts temperatures in Fahrenheit to te
     Use the function to calculate the temperature in Celsius if the temperature in Fahrenheit is 80°F.
 
 ```{r}
-# convert_fahrenheit_to_celsius <- ________(________) {
-#     celsius <- (fahrenheit - 32) * 5 / 9
-#     ________(________)
-# }
+ convert_fahrenheit_to_celsius <- function(fahrenheit) {
+     celsius <- (fahrenheit - 32) * 5 / 9
+     return(celsius)
+ }
 ```
 
 c.  Write a function named `double` that takes a number as input and outputs that number multiplied by 2. Run it with an input of 512.
 
+    ```{r}
+    doubledouble <- function(double, a ) {
+      double <- ( a * 2)
+      return(double)
+    }
+    doubledouble (a = 512)
+    ```
+
 d.  Write a function named `prediction` that takes three arguments, `x`, `a`, and `b`, and returns `y`. Use the following equation `a + b * x` (like a prediction from a simple linear model). Run it with `x` = 12, `a` = 6, and `b` = 0.8.
+
+    ```{r}
+    equation <- function (prediction, x, a, b) {
+      prediction <-  (a + b * x)
+      return(prediction)
+    }
+    equation(x = 12, a = 6, b = 0.8)
+    ```
 
 ### 2. Use and Modify (15 points)
 
@@ -83,18 +99,30 @@ get_mass_from_length_theropoda <- function(length){
 
 a.  Use this function to print out the mass of a *Theropoda* that is 16 m long based on its reassembled skeleton.
 
+    ```{r}
+    get_mass_from_length_theropoda(16)
+    ```
+
 b.  Create a new version of this function called `get_mass_from_length()` that takes `length`, `a` and `b` as arguments and uses the following code to estimate the mass `mass <- a * length ^ b`.
 
-    Use this function to estimate the mass of a *Sauropoda* (`a = 214.44`, `b = 1.46`) that is 26 m long.
+    Use this function to estimate the mass of a *Sauropoda* (`a = 214.44`, `b = 1.46`) that is 26 m long.d
+
+```{r}
+get_mass_from_length <- function (length, a = 214.55, b= 1.46){ 
+  mass <- (a * length ^ b)
+  return(mass)
+}
+get_mass_from_length (26)
+```
 
 ### 3. Writing Functions: Part 2 (15 points)
 
-a.  Copy the following function below (which converts weights in pounds to weights in grams and rounds them). Replace the `________` with the variable names for the input and output. Replace `__` with a number so that by default the function will round the output to one decimal place.
+a.  Copy the following function below (which converts weights in pounds to weights in grams and rounds them). Replace the `________` with the variable names for the input and output. Replace `__` with a number so that by default the function will **round the output to one decimal place.**
 
     Use the function to calculate how many grams there are in 4.3 pounds using the default for the number of decimal places.
 
 ```{r}
-# convert_pounds_to_grams <- function(________, numdigits = __) {
+# convert_pounds_to_grams <- function(ounds, numdigits = __) {
 #   grams <- 453.6 * pounds
 #   rounded <- round(grams, digits = numdigits)
 #   return(________)
@@ -113,7 +141,7 @@ This is a follow up to `Question 2: Use and Modify`.
 
 Allowing `a` and `b` to be passed as arguments to `get_mass_from_length()` made the function more flexible, but for some types of dinosaurs we don't have specific values of `a` and `b` and so we have to use general values that can be applied to a number of different species.
 
-a. Rewrite your `get_mass_from length()` function from Question 2 so that its arguments have default values of `a = 39.9` and `b = 2.6` (the average values from [Seebacher 2001](http://www.jstor.org/stable/4524171)).
+a.  Rewrite your `get_mass_from length()` function from Question 2 so that its arguments have default values of `a = 39.9` and `b = 2.6` (the average values from [Seebacher 2001](http://www.jstor.org/stable/4524171)).
 b.  Use the rewritten function from (a) to estimate the mass of a Sauropoda (`a = 214.44`, `b = 1.46`) that is 22 m long.
 c.  Use this function to estimate the mass of a dinosaur from an unknown taxonomic group that is 16m long. Only pass the function `length`, not `a` and `b`, so that the default values are used.
 

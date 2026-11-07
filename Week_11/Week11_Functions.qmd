@@ -46,7 +46,9 @@ The braces indicate that the lines of code are a group that gets run together.
 Let's write out our first function. We want to calculate shrub volumes.
 
 ```{r}
-
+calc_shrub_vol <- function(length, width, height) {
+  volume <- length * width * height
+  return(volume)}
 ```
 
 It is important to note that writing the function does not create the function. We have to remember to run the code to create the function and add it to our environment.
@@ -56,13 +58,13 @@ When we run this code chunk above, we can see that the function gets added to ou
 Let's use our new function.
 
 ```{r}
-
+calc_shrub_vol(0.8, 1.6, 2.0)
 ```
 
 As with other functions, we can store the output as an object to use later.
 
 ```{r}
-
+shrub_vol <- calc_shrub_vol(0.8, 1.6, 2.0)
 ```
 
 #### Let's Practice!
@@ -80,7 +82,8 @@ Similarly, the only thing our environment knows about the function is the output
 So, in the function above, we can't "access" variables or arguments that are created within the function. The function exists within its own environment, so to speak.
 
 ```{r eval=FALSE}
-
+width
+volume
 ```
 
 #### Let's Practice!
@@ -94,7 +97,11 @@ As with many of the functions that we have already used in this class, we can se
 For example, if many of our shrubs are the same height, we could specify that the default height should be 1.
 
 ```{r}
-
+est_shrub_mass <- function(volume, a = 2.65, b = 0.9) {
+  mass <- a * volume^b
+  return(mass)
+}
+est_shrub_mass(2.56)
 ```
 
 ### When do we use argument names?
@@ -104,7 +111,7 @@ While you don't always have to name the arguments you are specifying, there are 
 As we saw above, as long as you specify arguments in the correct order, they do not need to be named. On the other hand, if you specify arguments out of the order in which they are written into the function or you are skipping some arguments (using the default) and then specifying later arguments, it is necessary to name them.
 
 ```{r}
-
+est_shrub_mass(2.56, 2.65, 0.9)
 ```
 
 With some complicated functions, the order of the arguments is often challenging to remember, so using names by default is a good idea.
@@ -112,7 +119,11 @@ With some complicated functions, the order of the arguments is often challenging
 Similarly, when there are lots of optional arguments, you will often need to name them if you are using something other than the default. This is standard convention.
 
 ```{r}
+est_shrub_mass(2.56, 0.85)
+```
 
+```{r}
+est_shrub_mass(2.56, b = 0.85)
 ```
 
 ## Vectors and Data Frames
@@ -120,6 +131,7 @@ Similarly, when there are lots of optional arguments, you will often need to nam
 What if, instead of single values, we have a series of vectors or columns in data frame? Those will work!
 
 Often, the functions we write are *vectorized*, meaning they will work on vectors. We will explore some examples next week where that is not the case.
+
 ```{r}
 # vectors
 lengths <- c(1.2, 3, 4.7, 0.3)
@@ -156,12 +168,15 @@ Work on Questions 3 and 4 in the assignment.
 Again, as with other functions, we can combine functions of our own creation together.
 
 ```{r}
-
+shrub_volume <- calc_shrub_vol(0.8, 1.6, 2)
+est_shrub_mass(shrub_volume)
 ```
 
 We can also use pipes with our own functions. The output from the first function becomes the first argument for the second function.
 
 ```{r}
+calc_shrub_vol(0.8, 1.6, 2) |> 
+  est_shrub_mass()
 
 ```
 
@@ -178,13 +193,22 @@ If we try to use `tidyverse` functions the way we normally would within our func
 First, let's load our packages and get some data from `palmerpenguins`.
 
 ```{r}
-
+library(tidyverse)
+library(palmerpenguins)
 ```
 
 Now, let's write some code for a ggplot within a function as we normally would.
 
 ```{r eval = FALSE}
+make_plot <- fucntion(df, column, label){
+  ggplot(data = df, aes(x = column)) +
+    geom_histogram() +
+    labs(x = label, 
+         y = "Frequency") +
+    theme_light()
+}
 
+mke_plot(penguins, body_mass_g, "Body Mass (g)")
 ```
 
 Surprisingly, we get an error saying that the object `body_mass_g` is not found.
@@ -194,7 +218,15 @@ To fix this issue, we have to tell our code which inputs/arguments are this spec
 We can do this by "embracing" them in double braces (e.g., `{{ var }}`). This tells the function to treat them in the "tidy evaluation" method.
 
 ```{r}
+make_plot <- function(df, column, label){
+  ggplot(data = df, aes(x = {{ column }})) +
+    geom_histogram() +
+    labs(x = label, 
+         y = "Frequency") +
+    theme_light()
+}
 
+make_plot(penguins, body_mass_g, "Body Mass (g)")
 ```
 
 ### Let's Practice!

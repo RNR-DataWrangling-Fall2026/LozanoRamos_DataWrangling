@@ -221,7 +221,7 @@ get_mass_from_length(length = 12, a = 10.95, b = 2.64) |>
 ```
 
 ```{r}
-#5. Here is a new fucntion that uses pipes but this is another try
+#5. Here is a new fucntion that uses pipes but this is another try and it gives me the same value?
 get_pounds_from_length <- function(length, a = 39.9, b= 2.6){
   length |> 
     get_mass_from_length(a = a, b = b) |> 
@@ -252,13 +252,14 @@ a.  Write a function takes two arguments: (1) a data frame with a `count` column
     Save your plot as a .png file using `ggsave()` in the appropriate sub-directory.
 
     ```{r}
+    #6a
     plot_count_by_area <- function(data, color_column) {
       ggplot(data, aes(x = area, y = count, color = {{color_column}})) +
         geom_point(size = 3) +
         theme_classic()
     }
     plot <- plot_count_by_area(count_data, state)
-
+    plot
     ggsave(filename = "plot_count_by_area.jpg",
            plot = plot,
            path = "../Week_11/plots/")
@@ -268,9 +269,36 @@ b.  Use the function from (a) to make a scatter plot of count as a function of a
 
     Save your plot as a .png file using `ggsave()` in the appropriate sub-directory.
 
+    ```{r}
+    #6b
+    plot_count_by_area <- function(data, color_column) {
+      ggplot(data, aes(x = area, y = count, color = {{color_column}})) +
+        geom_point(size = 3) +
+        theme_classic()
+    }
+    plot2 <- plot_count_by_area(count_data, site)
+    plot2
+    ggsave(filename = "plot_2.jpg",
+           plot = plot2,
+           path = "../Week_11/plots/")
+    ```
+
 c.  Create a new function based on the function you created in (a); in this new function, allow the x and y axes to be any column in the data frame, specified as arguments in the function. This means you will also need to be able to specify the axis label names; in total, your function will need six different arguments!
 
     Remake the same plot as from (b) using your new function. Save your plot as a .png file using `ggsave()` in the appropriate sub-directory.
+
+    ```{r}
+    plots_count_by_area <- function(data, x_column, y_column, color_column, x_label, y_label) {
+      ggplot(data, aes(x = {{x_column}}, {{y_column}}, color = {{color_column}})) +
+        geom_point(size = 3) +
+        theme_classic()
+    }
+    plot3 <- plots_count_by_area(count_data, area, count, site, "Area", "Count")
+    plot3
+    ggsave(filename = "plot_3.jpg",
+           plot = plot3,
+           path = "../Week_11/plots/")
+    ```
 
 ### 7. Portal Species Time-Series Challenge (OPTIONAL)
 

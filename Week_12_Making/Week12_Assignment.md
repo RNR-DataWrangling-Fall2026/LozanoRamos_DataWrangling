@@ -7,7 +7,7 @@
 
 The goal of this assignment is to practice writing and using conditional
 statements, `if_else` and `case_when`, and `if`-`else` statements, and
-to combine them with skills from earlier in the semester (joins,
+to combine them wiith skills from earlier in the semester (joins,
 strings, and plotting).
 
 ### Task

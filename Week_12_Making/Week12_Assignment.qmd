@@ -86,7 +86,6 @@ First, create an object called `crab_size` and assign the value 17 to it.
 
 ```{r}
 library(tidyverse)
-install.packages("lterdatasampler")
 library(lterdatasampler)
 crab_size <-  17
 ```
@@ -331,7 +330,7 @@ c.  Use `if_else` and the `%in%` operator inside a `mutate` to add a column call
 
     ```{r}
     #5c
-    rodents <-  rodentss |> 
+    rodents <-  rodents |> 
       mutate(
         season = if_else(
           month %in% 4:9,
